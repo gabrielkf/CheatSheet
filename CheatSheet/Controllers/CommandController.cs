@@ -10,9 +10,9 @@ namespace CheatSheet.Controllers
     [Route("[controller]")]
     public class CommandController : ControllerBase
     {
-        private readonly MockCommandRepo _repository;
+        private readonly ICommandRepo _repository;
 
-        public CommandController(MockCommandRepo repository)
+        public CommandController(ICommandRepo repository)
         {
             _repository = repository;
         }
