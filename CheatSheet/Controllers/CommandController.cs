@@ -12,17 +12,26 @@ namespace CheatSheet.Controllers
     {
         private readonly MockCommandRepo _repository = new MockCommandRepo();
         
-        [HttpGet]
+        [HttpGet("all")]
         public ActionResult<IEnumerable<Command>> GetAll()
         {
             var allCommands = _repository.GetAll();
             return Ok(allCommands);
+        }
+        
+        [HttpGet("{platform}")]
+        public ActionResult<IEnumerable<Command>> GetByPlatform(string platform)
+        {
+            var byPlatform = _repository.GetByPlatform(platform);
+            if (!byPlatform.Any()) return NotFound();
+            return Ok(byPlatform);
         }
 
         [HttpGet("{id:int}")]
         public ActionResult<Command> GetById(int id)
         {
             var command = _repository.GetById(id);
+            if (command is null) return NotFound();
             return Ok(command);
         }
     }

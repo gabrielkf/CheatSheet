@@ -16,7 +16,7 @@ namespace CheatSheet.Data
 
         public IEnumerable<Command> GetByPlatform(string platform)
         {
-            throw new NotImplementedException();
+            return MockCommands.Where(command => command.Platform == platform);
         }
 
         private IEnumerable<Command> MockCommands => new List<Command>
