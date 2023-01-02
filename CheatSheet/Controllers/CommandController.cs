@@ -10,8 +10,13 @@ namespace CheatSheet.Controllers
     [Route("[controller]")]
     public class CommandController : ControllerBase
     {
-        private readonly MockCommandRepo _repository = new MockCommandRepo();
-        
+        private readonly MockCommandRepo _repository;
+
+        public CommandController(MockCommandRepo repository)
+        {
+            _repository = repository;
+        }
+
         [HttpGet("all")]
         public ActionResult<IEnumerable<Command>> GetAll()
         {
