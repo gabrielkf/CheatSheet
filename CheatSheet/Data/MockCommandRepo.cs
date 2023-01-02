@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CheatSheet.Models;
@@ -11,9 +12,11 @@ namespace CheatSheet.Data
             return MockCommands.SingleOrDefault(command => command.Id == id);
         }
 
+        public IEnumerable<Command> GetAll() => MockCommands;
+
         public IEnumerable<Command> GetByPlatform(string platform)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         private IEnumerable<Command> MockCommands => new List<Command>
