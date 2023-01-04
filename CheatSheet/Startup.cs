@@ -29,7 +29,7 @@ namespace CheatSheet
         {
             services.AddDbContext<DataContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
-            services.AddScoped<ICommandRepo, MockCommandRepo>();
+            services.AddScoped<ICommandRepo, SqlServerCommandRepo>();
             services.AddControllers();
         }
 
