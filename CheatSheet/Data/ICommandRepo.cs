@@ -5,8 +5,10 @@ namespace CheatSheet.Data
 {
     public interface ICommandRepo
     {
-        Command GetById(int id);
-        IEnumerable<Command> GetAll();
-        IEnumerable<Command> GetByPlatform(string platform);
+        bool SaveChanges();
+        Command GetCommandById(int id);
+        IEnumerable<Command> GetAllCommands();
+        IEnumerable<Command> GetCommandsByPlatform(string platform);
+        void CreateCommand(Command command);
     }
 }

@@ -10,6 +10,7 @@ namespace CheatSheet.Profiles
         public CommandProfiles()
         {
             CreateMap<Command, CommandReadDto>();
+            CreateMap<CommandCreateDto, Command>();
         }
     }
 }
