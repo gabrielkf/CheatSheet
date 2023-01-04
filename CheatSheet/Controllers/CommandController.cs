@@ -36,7 +36,7 @@ namespace CheatSheet.Controllers
             return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(byPlatform));
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}", Name = "GetById")]
         public ActionResult<CommandReadDto> GetById(int id)
         {
             var command = _repository.GetCommandById(id);
@@ -49,8 +49,10 @@ namespace CheatSheet.Controllers
         {
             var command = _mapper.Map<Command>(commandCreateDto);
             _repository.CreateCommand(command);
-            _repository.SaveChanges();
-            return Ok(command);
+            if (!_repository.SaveChanges()) return UnprocessableEntity();
+
+            var readDto = _mapper.Map<CommandReadDto>(command);
+            return CreatedAtRoute(nameof(GetById), new {Id = command.Id}, readDto);
         }
     }
 }
