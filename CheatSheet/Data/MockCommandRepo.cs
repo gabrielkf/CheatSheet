@@ -29,6 +29,11 @@ namespace CheatSheet.Data
             throw new NotImplementedException();
         }
 
+        public void UpdateCommand(Command command)
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerable<Command> MockCommands => new List<Command>
         {
             new Command()

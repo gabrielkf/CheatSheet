@@ -10,5 +10,6 @@ namespace CheatSheet.Data
         IEnumerable<Command> GetAllCommands();
         IEnumerable<Command> GetCommandsByPlatform(string platform);
         void CreateCommand(Command command);
+        void UpdateCommand(Command command);
     }
 }

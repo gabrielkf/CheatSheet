@@ -54,5 +54,18 @@ namespace CheatSheet.Controllers
             var readDto = _mapper.Map<CommandReadDto>(command);
             return CreatedAtRoute(nameof(GetById), new {Id = command.Id}, readDto);
         }
+
+        [HttpPut("{id:int}")]
+        public ActionResult<CommandReadDto> UpdateCommand(int id, CommandCreateDto updateDto)
+        {
+            var command = _repository.GetCommandById(id);
+            if (command is null) return NotFound();
+            
+            _mapper.Map(updateDto, command);
+            _repository.UpdateCommand(command);
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

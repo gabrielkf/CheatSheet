@@ -39,5 +39,10 @@ namespace CheatSheet.Data
             if (command is null) throw new System.ArgumentNullException();
             _context.Commands.Add(command);
         }
+
+        public void UpdateCommand(Command command)
+        {
+            // nothing
+        }
     }
 }
