@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CheatSheet.Models;
@@ -43,6 +44,12 @@ namespace CheatSheet.Data
         public void UpdateCommand(Command command)
         {
             // nothing
+        }
+
+        public void DeleteCommand(Command command)
+        {
+            if (command is null) throw new ArgumentNullException(nameof(command));
+            _context.Commands.Remove(command);
         }
     }
 }

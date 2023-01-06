@@ -84,5 +84,17 @@ namespace CheatSheet.Controllers
             _repository.SaveChanges();
             return NoContent();
         }
+
+        [HttpDelete("{id:int}")]
+        public ActionResult DeleteCommand(int id)
+        {
+            var command = _repository.GetCommandById(id);
+            if (command is null) return NotFound();
+            
+            _repository.DeleteCommand(command);
+            _repository.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

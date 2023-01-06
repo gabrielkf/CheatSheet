@@ -34,6 +34,11 @@ namespace CheatSheet.Data
             throw new NotImplementedException();
         }
 
+        public void DeleteCommand(Command command)
+        {
+            throw new NotImplementedException();
+        }
+
         private IEnumerable<Command> MockCommands => new List<Command>
         {
             new Command()
