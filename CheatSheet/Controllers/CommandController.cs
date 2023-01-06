@@ -4,6 +4,7 @@ using AutoMapper;
 using CheatSheet.Data;
 using CheatSheet.Dtos;
 using CheatSheet.Models;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CheatSheet.Controllers
@@ -56,15 +57,31 @@ namespace CheatSheet.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult<CommandReadDto> UpdateCommand(int id, CommandCreateDto updateDto)
+        public ActionResult UpdateCommand(int id, CommandUpdateDto updateDto)
         {
-            var command = _repository.GetCommandById(id);
-            if (command is null) return NotFound();
+            var repoCmd = _repository.GetCommandById(id);
+            if (repoCmd is null) return NotFound();
             
-            _mapper.Map(updateDto, command);
-            _repository.UpdateCommand(command);
+            _mapper.Map(updateDto, repoCmd);
+            _repository.UpdateCommand(repoCmd);
             _repository.SaveChanges();
 
+            return NoContent();
+        }
+
+        [HttpPatch("{id:int}")]
+        public ActionResult PartialUpdateCommand(int id, JsonPatchDocument<CommandUpdateDto> patchDocument)
+        {
+            var repoCmd = _repository.GetCommandById(id);
+            if (repoCmd is null) return NotFound();
+
+            var cmdToPatch = _mapper.Map<CommandUpdateDto>(repoCmd);
+            patchDocument.ApplyTo(cmdToPatch, ModelState);
+            if (!TryValidateModel(cmdToPatch)) return ValidationProblem(ModelState);
+
+            _mapper.Map(cmdToPatch, repoCmd);
+            _repository.UpdateCommand(repoCmd);
+            _repository.SaveChanges();
             return NoContent();
         }
     }
